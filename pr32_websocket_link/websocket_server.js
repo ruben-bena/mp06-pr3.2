@@ -27,7 +27,7 @@ wss.on('connection', (ws, request) => {
     ws.on('message', (data) => {
         // Mensaje recibido
         const message = JSON.parse(data);
-        logger.info('Mensaje recibido:', message);
+        logger.info(`Mensaje recibido: ${data}`);
     });
 
     // Cuando cliente cierra conexión

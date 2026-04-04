@@ -1,4 +1,6 @@
 const WebSocket = require('ws');
+const InputManager = require('./src/inputManager.js');
+
 require('dotenv').config();
 
 // Crear conexión
@@ -10,6 +12,19 @@ ws.on('open', () => {
 
     // Enviar mensaje inicial para mantener el loop activo
     ws.send(JSON.stringify({ hello: 'world' }));
+
+    const inputManager = new InputManager((movementState) => {
+        //console.log('Acción detectada:', movementState);
+
+        console.log(inputManager.parseToDirection());
+
+        ws.send(JSON.stringify({
+            direction: inputManager.parseToDirection(),
+            timestamp: Date.now()
+        }));
+    });
+
+    
 });
 
 // Recibir mensajes
