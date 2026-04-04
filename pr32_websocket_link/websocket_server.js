@@ -1,6 +1,7 @@
 const WebSocket = require('ws');
 const { MongoClient } = require('mongodb');
 const winston = require('winston');
+const crypto = require('crypto');
 require('dotenv').config();
 
 // Logger que utilizaremos para imprimir por pantalla y volcar en fichero log
@@ -22,6 +23,8 @@ logger.debug('Servidor arrancado')
 wss.on('connection', (ws, request) => {
     logger.info('Nuevo cliente conectado');
     ws.send(JSON.stringify({ foo: 'Conexión aceptada' }));
+    const gameId = crypto.randomUUID();
+    logger.info(`Identificador de la partida: ${uuid}`);
 
     // Cuando recibimos mensaje del cliente
     ws.on('message', (data) => {
