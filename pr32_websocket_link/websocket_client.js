@@ -23,8 +23,6 @@ ws.on('open', () => {
             timestamp: Date.now()
         }));
     });
-
-    
 });
 
 // Recibir mensajes
@@ -32,6 +30,11 @@ ws.on('message', (data) => {
     try {
         const message = JSON.parse(data);
         console.log('Mensaje del servidor:', message);
+
+        if (message.event === 'FINISHED') {
+            ws.close();
+            process.exit();
+        }
     } catch (err) {
         console.log('Mensaje del servidor (raw):', data.toString());
     }
