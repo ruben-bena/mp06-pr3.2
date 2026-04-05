@@ -3,6 +3,12 @@ services:
   mongo:
     image: mongo:latest
     container_name: m0486-tema4-ra5-mongo
+    restart: always
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
     ports:
       - "27017:27017"
     environment:
