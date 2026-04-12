@@ -71,7 +71,7 @@ wss.on('connection', async (ws, request) => {
                 logger.warn(`PARTIDA ACABADA: Inactividad detectada en la partida ${gameId}`);
                 
                 // Lógica para calcular distancia
-                const distanciaTotal = await finalizarPartida(collection, gameId);
+                const distanciaTotal = await calcularDistancia(collection, gameId);
                 ws.send(JSON.stringify({ event: 'FINISHED', distanciaTotal: distanciaTotal }));
                 
                 ws.send(JSON.stringify({ event: 'GAME_OVER', reason: 'timeout' }));
@@ -104,7 +104,7 @@ wss.on('connection', async (ws, request) => {
     });
 });
 
-async function finalizarPartida(collection, gameId) {
+async function calcularDistancia(collection, gameId) {
     logger.info(`Calculando resumen final para la partida: ${gameId}...`);
     
     let x = 0;
